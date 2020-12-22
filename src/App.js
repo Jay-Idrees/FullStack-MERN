@@ -1,28 +1,29 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Users from  "./user/pages/Users"
-
+import NewPlace from "./places/pages/NewPlace"
 
 
 const App=()=> {
   return <Router>
+   <Switch>
     {/* Default path to users */}
-    <Route path="/" exact>
-      
-      <Users/>
+          <Route path="/" exact>
+            
+            <Users/>
 
-    </Route>
+          </Route>
       {/* Path to places */}
 
-      <Route path="/places/new" exact>
-      
-      <Users/>
+          <Route path="/places/new" exact>
+          
+          <NewPlace/>
 
-    </Route>
+          </Route>
 
    {/* Redirecting to homepage of something else is typed */}
       <Redirect to="/"/>
-
+    </Switch>
   </Router>
 };
 
