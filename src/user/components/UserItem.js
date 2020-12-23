@@ -11,7 +11,7 @@ const UserItem=props=>{
     return(
         <li className='user-item'>
             <Card className="user-item__content">
-                    {/* The Link tag here is synonymous to a or ancor tag  and also dd the extra block the navigation logic*/}
+                    {/* The Link tag here is synonymous to a or anchor tag  and also adds the extra block the navigation logic*/}
                 <Link to={`/${props.id}/places`}>
                     <div className="user-item__image">
                    
