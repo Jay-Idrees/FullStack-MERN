@@ -2,11 +2,13 @@ import React from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 import Users from  "./user/pages/Users"
 import NewPlace from "./places/pages/NewPlace"
-
+import MainNavigation from "./shared/components/Navigation/MainNavigation"
 
 const App=()=> {
   return <Router>
     {/* Adding a switch prevents automatic re-routing of path */}
+<MainNavigation/>
+<main>
    <Switch>
     {/* Default path to users - You have to enclose the component in the route if you only want to display that particular component */}
           <Route path="/" exact>
@@ -25,6 +27,7 @@ const App=()=> {
    {/* Redirecting to homepage of something else is typed */}
       <Redirect to="/"/>
     </Switch>
+    </main>
   </Router>
 };
 
