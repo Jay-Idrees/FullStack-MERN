@@ -18,7 +18,7 @@ const USERS=[
     }
 ]
 
-
+// Note that here the USERS data is going to the UserItem.js as props
     return <UsersList  items={USERS}/>;
 };
 
