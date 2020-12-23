@@ -14,9 +14,13 @@ const UsersList=props=>{
     } // br close if
 
     return <ul>
-        {props.items.map (user=>
-        {return <userItem />;
-         })}
+        {/* Note that I hace not set up the mangoDB modal yet, but I am creating this in anticipation of how the userItem shoud look like */}
+        {props.items.map (user=>(<UserItem  
+        key={user.id} 
+        id={user.id} 
+        image={user.image} 
+        placeCount={user.places} />)
+         )}
     </ul>
 
 
