@@ -15,7 +15,15 @@ const USERS=[
     image:"https://i1.rgstatic.net/ii/profile.image/272563498647591-1441995610798_Q512/Jay_Idrees.jpg",
     places:3
 
-    }
+    },
+
+    {
+        id:"u1",
+        name:"No One",
+        image:"https://i1.rgstatic.net/ii/profile.image/272563498647591-1441995610798_Q512/Jay_Idrees.jpg",
+        places:3
+    
+        }
 ]
 
 // Note that here the USERS data is going to the UserItem.js as props
