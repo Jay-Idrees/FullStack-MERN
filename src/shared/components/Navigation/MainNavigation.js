@@ -1,5 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
+import NavLinks from "./NavLinks"
 
 import MainHeader from './MainHeader';
 import "./MainNavigation.css";
@@ -19,7 +20,7 @@ return(
             <Link to="/"> YourPlaces</Link>
             </h1>
             <nav>
-                ...- will insert nav links later
+              <NavLinks/>
             </nav>
         </MainHeader>
 
