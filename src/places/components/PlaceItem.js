@@ -1,11 +1,12 @@
 import React from "react";
 
-
+import Card from "../../shared/components/UIElements/Card";
 import "./PlaceItem.css"
 
 // Passing data into the actual component for use
 const PlaceItem=props=>{
     return<li className='place-item'>
+     <Card className="place-item__content">
         <div className="place-item__image">
             <img src={props.image}  alt={props.title}/>
         </div>
@@ -20,7 +21,8 @@ const PlaceItem=props=>{
             <button> Delete </button>
 
         </div>
+    </Card>
     </li>
 };
 
-export default PlaceItem
+export default PlaceItem;
