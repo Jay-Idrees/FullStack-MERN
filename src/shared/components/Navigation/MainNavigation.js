@@ -12,11 +12,11 @@ import "./MainNavigation.css";
 const MainNavigation=props=>{
     const [drawerIsOpen, setDrawerIsOpen]=useState(false)
 
-    const openDrawer=()=>{
+    const openDrawerHandler=()=>{
         setDrawerIsOpen(true);
     };
 
-    const closeDrawer=()=>{
+    const closeDrawerHandler=()=>{
         setDrawerIsOpen(false);
     };
 
@@ -26,9 +26,9 @@ return(
 
     // Can only have ONE root JSX element per component-React/JS Rule if we want to use multiple then we should include React.Fragment
     <React.Fragment>
-     {drawerIsOpen && <Backdrop onClick={closeDrawer}/>}
+     {drawerIsOpen && <Backdrop onClick={closeDrawerHandler}/>}
     
-    <SideDrawer show={drawerIsOpen} onClick={closeDrawer}>
+    <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
         <nav className="main-navigation__drawer-nav">
             <NavLinks />
         </nav>
@@ -36,7 +36,7 @@ return(
         
     {/*Props.children will return anything between the <MainHeader></Mainheader> to the MainHeader.js */}
         <MainHeader>
-            <button className="main-navigation__menu-btn" onClick={openDrawer}>
+            <button className="main-navigation__menu-btn" onClick={openDrawerHandler}>
                 <span />
                 <span />
                 <span />
