@@ -26,6 +26,7 @@ return(
 
     // Can only have ONE root JSX element per component-React/JS Rule if we want to use multiple then we should include React.Fragment
     <React.Fragment>
+        {/* Note that the onClick event will be  */}
      {drawerIsOpen && <Backdrop onClick={closeDrawerHandler}/>}
     
     <SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
