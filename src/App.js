@@ -6,9 +6,10 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation"
 
 const App=()=> {
   return <Router>
-    {/* Adding a switch prevents automatic re-routing of path */}
+   
 <MainNavigation/>
 <main>
+   {/* Adding a switch prevents automatic re-routing of path */}
    <Switch>
     {/* Default path to users - You have to enclose the component in the route if you only want to display that particular component */}
           <Route path="/" exact>
