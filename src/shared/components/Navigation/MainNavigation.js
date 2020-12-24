@@ -4,6 +4,7 @@ import NavLinks from "./NavLinks"
 import SideDrawer from "./SideDrawer"
 import Backdrop from "../UIElements/Backdrop"
 
+
 import MainHeader from './MainHeader';
 import "./MainNavigation.css";
 
@@ -26,13 +27,13 @@ return(
     // Can only have ONE root JSX element per component-React/JS Rule if we want to use multiple then we should include React.Fragment
     <React.Fragment>
      {drawerIsOpen && <Backdrop onClick={closeDrawer}/>}
-    {drawerIsOpen && (
-    <SideDrawer>
+    
+    <SideDrawer show={drawerIsOpen}>
         <nav className="main-navigation__drawer-nav">
             <NavLinks />
         </nav>
     </SideDrawer>
-        )}
+        
     {/*Props.children will return anything between the <MainHeader></Mainheader> to the MainHeader.js */}
         <MainHeader>
             <button className="main-navigation__menu-btn" onClick={openDrawer}>
