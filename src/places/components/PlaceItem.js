@@ -3,7 +3,7 @@ import React from "react";
 import Card from "../../shared/components/UIElements/Card";
 import "./PlaceItem.css"
 
-// Passing data into the actual component for use
+// Passing data into the actual component for use. Item is the real deal that is projected onto placelist
 const PlaceItem=props=>{
     return<li className='place-item'>
      <Card className="place-item__content">
