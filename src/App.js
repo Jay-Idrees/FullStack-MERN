@@ -19,7 +19,7 @@ const App=()=> {
             <Users/>
 
           </Route>
-
+{/* Adding places and impoeting the userPlaces page */}
             <Route path="/:userId/places" exact>
               <UserPlaces/>
             </Route>

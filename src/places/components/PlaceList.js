@@ -22,7 +22,9 @@ const PlaceList=props=>{
         <ul className='place-list'>
 
             {props.items.map(place=>(
+                // See how I have used teh PlaceItem
             <PlaceItem
+            // The list below if making these items available for props
             key={place.id}
             id={place.id}
             image={place.imageURL}
