@@ -4,7 +4,7 @@ import React from "react";
 import "./Input.css"
 
 const Input=props=>{
-
+// Select between input vs text area
     const element=props.element ==="input" ?( <input id={props.id} type={props.type} placeholder={props.placeholder} />
         ):(
         <textarea id={props.id} rows={props.rows ||3}/>
