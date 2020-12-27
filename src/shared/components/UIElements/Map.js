@@ -7,7 +7,7 @@ const Map=props=>{
 
     const mapRef=useRef();
 
-    // Here I am extracting center and zoom from the props so that they are available when the useRef is run
+    // Here I am extracting center and zoom from the props so that they are available when the useRef is run. These props are defined in the PlaceItem.js when the Map component is called in inside the Modal component
 
     const {center, zoom}=props;
 
