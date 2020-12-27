@@ -1,6 +1,7 @@
 .modal {
     z-index: 100;
     position: fixed;
+    /* vh means viw portal height in percent */
     top: 22vh;
     left: 10%;
     width: 80%;
