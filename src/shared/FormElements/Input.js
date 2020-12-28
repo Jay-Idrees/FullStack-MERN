@@ -16,6 +16,12 @@ const inputReducer=(state, action)=>{
                 value:action.val,
                 isValid: validate(action.val, action.validators)
             };
+        case 'TOUCH': {
+            return {
+                ...state,
+                isTouched:true
+            };
+        };
             default:
                 return state;
 
@@ -25,7 +31,12 @@ const inputReducer=(state, action)=>{
 const Input=props=>{
     // The UseReducer is similar to useState but its unique in that it also has the capabilities of executing a function. We can use array destructuring and the userReducer function can take 2 arguments which in this case are the imput reducer and the initial state values. The function InputReduce when run will update the current state and will execute the function called and then based on then re-render the component 
     // Note that the {} is passing on the initial state. Like in this function I have used a blank value and isValid:false as the default state.- Now in the case Change I am telling that, ok when you notice any change from the default state, run this logic first - which will basically perform input valiation function and based on the result of that function (which in this case is the change in class) will re-render the class of the function 
-    const [inputState, dispatch]=useReducer(inputReducer, {value:"", isvalid:false});
+    const [inputState, dispatch]=useReducer(inputReducer, {
+        value:"", 
+        isTouched:false,
+        isvalid:false,
+    
+});
 
 const changeHandler=event=>{
     // This is telling that whatever difference in the state you have detected capture that value and then dispatch it with a lable "Change" 
@@ -36,6 +47,16 @@ dispatch ({type:'CHANGE',
         });
 
 };
+
+
+
+const touchHandler=()=>{
+    dispatch({
+        type:'TOUCH'
+    });
+};
+
+
 
 
     // This onchange function will be triggered whenever there is change in the input
@@ -51,6 +72,7 @@ dispatch ({type:'CHANGE',
     // Two way binding for value
     // This is creating the prop.onChange that is storing the CHANGE lable and the latest value of the 
     onChange={changeHandler}
+    onBlur={touchHandler}
     value={inputState.value}
     />
         ):(
@@ -58,17 +80,18 @@ dispatch ({type:'CHANGE',
         id={props.id} 
         rows={props.rows ||3}  
         onChange={changeHandler}
+        onBlur={touchHandler}
         value={inputState.value}/>
 );
 
 
     return (
         // Telling the div to use a different class if the input is invalid
-    <div className={`form-control ${! inputState.isValid && 'form-control--invalid'}`}>
+    <div className={`form-control ${! inputState.isValid && inputState.isTouched && 'form-control--invalid'}`}>
         <label htmlFor={props.id}>{props.label}</label>
         {element}
-        {/* Passing an error using the props if the input is not valid */}
-        {!inputState.isValid && <p>{props.errorText}</p>}
+        {/* Passing an error using the props if the input is not valid- Basically saying that only show this element when inputState is not valida and when inputState.istouched==true */}
+        {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </div>
 );
 
