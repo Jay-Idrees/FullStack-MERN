@@ -16,12 +16,16 @@ export const VALIDATOR_MAXLENGTH = val => ({
   type: VALIDATOR_TYPE_MAXLENGTH,
   val: val
 });
+
+// Here we are setting the requirements for each of the functions to run for example VALIDATOR_MIN will require that every object at least has a type and a val
 export const VALIDATOR_MIN = val => ({ type: VALIDATOR_TYPE_MIN, val: val });
 export const VALIDATOR_MAX = val => ({ type: VALIDATOR_TYPE_MAX, val: val });
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 
+//Note that later onn we will use object destructuring to import the function validate below as object into the input file . These functions are the extra logics that the useReducer hook is going to run based on the change in state
 export const validate = (value, validators) => {
   let isValid = true;
+  // This is a for loop runing through the object containing validators
   for (const validator of validators) {
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
       isValid = isValid && value.trim().length > 0;
