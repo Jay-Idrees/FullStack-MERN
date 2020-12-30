@@ -67,15 +67,14 @@ const NewPlace=()=>{
         element="input" 
         type="text" 
         label="Title" 
-        //The piece of code below passing of VALIDATOR_REQIRE from the validators.js as props. It is basically a function to be applied onto the input value from this particular form input 
-        validators={[{VALIDATOR_REQUIRE}]} 
+        //The piece of code below passing of VALIDATOR_REQIRE from the validators.js as props. It is basically a function to be applied onto the input value from this particular form input textbox
+        validators={[VALIDATOR_REQUIRE()]} 
         errorText="Please enter a valid title"
         onInput={inputHandler}
         />
 
         <Input 
         id='description'
-        element="input" 
         type="textarea" 
         label="Description" 
         //The piece of code below passing of VALIDATOR_REQIRE from the validators.js as props. It is basically a function to be applied onto the input value from this particular form input 
