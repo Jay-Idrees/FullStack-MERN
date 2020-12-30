@@ -47,10 +47,17 @@ const NewPlace=()=>{
                 value:"",
                 isValid:false
             },
+
+            address:{
+                value:"",
+                isValid:false
+            }
+
+
 // This will check the overall validity of the form
         },
         isValid:false
-    });
+    }); //NewPlace
 
     const inputHandler=useCallback((id, value, isValid)=>{
         // This titleInputHandler function is invoked onInput and collects id, type, value in textbox and adds isValid to pass on as paramteters for the dispatch 'object' representing the new state for the formReducer. If you look at the NewPlace function, you will notice that formReducer is "new updated state" for the useReducer hook function 
