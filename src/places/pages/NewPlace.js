@@ -57,8 +57,14 @@ const NewPlace=()=>{
         dispatch({type:'INPUT_CHANGE', value:value, isValid:isValid, inputId:id})
     }, []);
 
+    const placeSubmithandler=event=>{
+        event.preventDefault();
+        console.log(formState.inputs) // send this to the backend
 
-    return (<form className="place-form">
+    }
+
+
+    return (<form className="place-form" onSubmit={placeSubmithandler}>
 
 
         <Input 
@@ -82,6 +88,20 @@ const NewPlace=()=>{
         errorText="Please enter a valid description"
         onInput={inputHandler}
         />
+
+        <Input 
+        id='address'
+        element='input'
+        type="text" 
+        label="Address" 
+        //The piece of code below passing of VALIDATOR_REQIRE from the validators.js as props. It is basically a function to be applied onto the input value from this particular form input 
+        validators={[VALIDATOR_REQUIRE]} 
+        errorText="Please enter a valid address"
+        onInput={inputHandler}
+        />  
+
+
+
         {/* Setting up default button state as diabled when the formState.isValid is false */}
         <Button type="submit" disabled={!formState.isValid}> Add Place</Button>
         
