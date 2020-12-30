@@ -34,12 +34,13 @@ const inputReducer=(state, action)=>{
 };
 
 const Input=props=>{
-    // The UseReducer is similar to useState but its unique in that it also has the capabilities of executing a function. We can use array destructuring and the userReducer function can take 2 arguments which in this case are the imput reducer and the initial state values. The function InputReduce when run will update the current state and will execute the function called and then based on then re-render the component 
+    // The UseReducer is similar to useState but its unique in that it also has the capabilities of executing a function. We can use array destructuring and the userReducer function can take 2 arguments which in this case are the imput reducer and the initial state values. The function InputReducer when run will update the current state and will execute the function called and then based on that will re-render the component 
     // Note that the {} is passing on the initial state. Like in this function I have used a blank value and isValid:false as the default state.- Now in the case Change I am telling that, ok when you notice any change from the default state, run this logic first - which will basically perform input valiation function and based on the result of that function (which in this case is the change in class) will re-render the class of the function 
     const [inputState, dispatch]=useReducer(inputReducer, {
-        value:"", 
+      // Note that here I previously only had it as "" to represent the default state. Since I am also wanting the same logic for the update place. An important consideration in the situation is that the information for the value and the isValid is already present in the deault state as only an existing place is being updated. So by using || I can declare both the pre-exisitng value and the black as the default state
+        value:props.value || "", 
         isTouched:false,
-        isvalid:false
+        isvalid: props.valid || false
     
 });
 

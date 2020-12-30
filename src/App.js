@@ -5,6 +5,7 @@ import Users from  "./user/pages/Users"
 import NewPlace from "./places/pages/NewPlace"
 import UserPlaces from "./places/pages/UserPlaces"
 import MainNavigation from "./shared/components/Navigation/MainNavigation"
+import UpdatePlaces from "./places/pages/UpdatePlace"
 
 const App=()=> {
   return <Router>
@@ -32,6 +33,15 @@ const App=()=> {
           <NewPlace/>
 
           </Route>
+
+
+          <Route path="/places/:placeId" exact>
+          
+          <UpdatePlaces/>
+
+          </Route>
+
+
 
    {/* Redirecting to homepage of something else is typed */}
       <Redirect to="/"/>
