@@ -1,68 +1,32 @@
-import React, {useCallback, useReducer} from 'react';
+import React from 'react';
 
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/Button/Button";
 import {VALIDATOR_REQUIRE, VALIDATOR_MINLENGTH} from "../../shared/util/validators"
+import {useForm} from '../../shared/hooks/form-hook';
 import "./PlaceForm.css";
 
-const formReducer=(state, action)=>{
-    // Here I am defining cases based on the type of input such as 'text' or 'textarea'
-switch (action.type){
-    case 'INPUT_CHANGE':
-        let formIsValid=true;
-        // for each of the states of the component portions if you receive an id (stored in the variable inputId), match the ids for the default state defined in the useReducer function with the id of the component portion (e-g title)
-        for (const inputId in state.inputs) {
-            if(inputId===action.inputId){
-                formIsValid=formIsValid && action.isValid;
-            } else {
-                formIsValid=formIsValid && state.inputs[inputId].isValid
-            }
-        }
-        return {
-            ...state,
-            inputs:{
-                ...state.inputs,
-                // So this line is specifying instructions for individual forminput components. For example [action.inputId] for the 'title' wil be title- so the code is saying 'for input from the textbox with title as id, update the default state by replaceing the current state values from action.value and action.isValid
-                [action.inputId]:{value:action.value, isValid:action.isValid}
-            },
-            // If even one of the individual components of the form 
-            isValid:formIsValid
-        };
-        default:
-            return state;
-}//switch
-
-};//formReducer
 
 const NewPlace=()=>{
+// Note that this initializes the useReducer function
 
-    const [formState, dispatch]=useReducer(formReducer, {
-        inputs:{
-            title:{
-                value:"",
-                isValid:false
-            },
-            // Here I am assigining the default state for the properties of the input form portion with the key of 'description'
-            description:{
-                value:"",
-                isValid:false
-            },
-
-            address:{
-                value:"",
-                isValid:false
-            }
-
-
-// This will check the overall validity of the form
+const [formState, inputHandler]=useForm({
+        title:{
+            value:"",
+            isValid:false
         },
-        isValid:false
-    }); //NewPlace
+        description:{
+            value:'',
+            isValid:false
+        },
+        address:{
+            value:'',
+            isValid:false
+        }
+    }, false);
+  
 
-    const inputHandler=useCallback((id, value, isValid)=>{
-        // This titleInputHandler function is invoked onInput and collects id, type, value in textbox and adds isValid to pass on as paramteters for the dispatch 'object' representing the new state for the formReducer. If you look at the NewPlace function, you will notice that formReducer is "new updated state" for the useReducer hook function 
-        dispatch({type:'INPUT_CHANGE', value:value, isValid:isValid, inputId:id})
-    }, []);
+
 
     const placeSubmithandler=event=>{
         event.preventDefault();
