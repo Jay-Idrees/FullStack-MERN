@@ -5,7 +5,7 @@
 
 import React, {useReducer, useEffect} from "react";
 
-import {validate} from "../../util/validators"
+import {validate} from "../../util/validators";
 import './Input.css';
 
 // Note that the useEffect hook is typlically used to run some javascript function when the page is loaded. We can also use this hook to execute another tertirary level function with a change in state and therefore DOM rendering is detected, for example in this case with the require input validation functionality. 
@@ -38,9 +38,10 @@ const Input=props=>{
     // Note that the {} is passing on the initial state. Like in this function I have used a blank value and isValid:false as the default state.- Now in the case Change I am telling that, ok when you notice any change from the default state, run this logic first - which will basically perform input valiation function and based on the result of that function (which in this case is the change in class) will re-render the class of the function 
     const [inputState, dispatch]=useReducer(inputReducer, {
       // Note that here I previously only had it as "" to represent the default state. Since I am also wanting the same logic for the update place. An important consideration in the situation is that the information for the value and the isValid is already present in the deault state as only an existing place is being updated. So by using || I can declare both the pre-exisitng value and the black as the default state
-        value:props.value || "", 
+        // Note here I am trying to display the initial state values using props, so the naminc must match exactly e-g initialValue vs initialvalue
+        value:props.initialValue || "", 
         isTouched:false,
-        isvalid: props.valid || false
+        isvalid: props.initialValid || false
     
 });
 

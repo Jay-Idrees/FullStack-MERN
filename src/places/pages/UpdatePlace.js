@@ -1,10 +1,12 @@
 import React from 'react';
-import {useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom';
 
-import Input from '../../shared/components/FormElements/Input'
-import Button from '../../shared/components/Button/Button'
-import './PlaceForm.css'
+import Input from '../../shared/components/FormElements/Input';
+import Button from '../../shared/components/Button/Button';
+import './PlaceForm.css';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
+import {useForm} from "../../shared/hooks/form-hook";
+import'./PlaceForm.css'
 
 const DUMMY_PLACES=[ 
     // Using this dummy variable untill the backend is established
@@ -40,24 +42,43 @@ const DUMMY_PLACES=[
         
         }
 
-
-
 ]
 
 
 const UpdatePlace=()=>{
     // Note that the useParams hook has access to the placeId params as it as it matches with how it was defined in app.js under routes
-const placeId=useParams().placeId;
-const identifiedPlace=DUMMY_PLACES.find(p=>p.id===placeId)
-if (!identifiedPlace){
-    return(
-        <div className="center">
-            <h2>Could not find the place</h2>
-        </div>
-    )
-};
+    const placeId=useParams().placeId;
+    const identifiedPlace=DUMMY_PLACES.find(p=>p.id===placeId);
 
-return <form className="place-form">
+    const [formState, inputHandler]= useForm({
+        title:{
+            value:identifiedPlace.title, // This is coming from the DUMMY_PLACES.find
+            isValid:true
+    },
+        description: {
+            value:identifiedPlace.description,
+            isValid: false
+        }
+    
+    }, true);
+
+    const placeUpdateSubmitHandler = event => {
+        event.preventDefault();
+        console.log(formState.inputs);
+      };
+    
+
+    if (!identifiedPlace){
+        return(
+            <div className="center">
+                <h2>Could not find the place</h2>
+            </div>
+        )
+    };
+
+
+return(
+<form className="place-form" onSubmit={placeUpdateSubmitHandler}>
     {/* Title */}
     <Input 
     id="tittle" 
@@ -66,10 +87,10 @@ return <form className="place-form">
     label="Title" 
     validators={[VALIDATOR_REQUIRE()]} 
     errorText="Please enter a valid title"
-    onInput={()=>{}}
+    onInput={inputHandler}
     // Note that the identified place is a variable drived from the DUMMY_PLACES.find above
-    value={identifiedPlace.title}
-    valid={true}
+    initialValue={formState.inputs.title.value}
+    initialValid={formState.inputs.title.isValid}
     />
     {/* Description */}
 
@@ -79,17 +100,17 @@ return <form className="place-form">
     label="Description" 
     validators={[VALIDATOR_MINLENGTH(5)]} 
     errorText="Please enter a valid description"
-    onInput={()=>{}}
-    value={identifiedPlace.description}
-    valid={true}
+    onInput={inputHandler}
+    initialValue={formState.inputs.description.value}
+    initialValid={formState.inputs.description.isValid}
     />
 
     <Button
     type="submit"
-    disabled={true}
+    disabled={!formState.isValid}
     > Update Place</Button>
     
-</form>
+</form>);
 };
 
 export default UpdatePlace;

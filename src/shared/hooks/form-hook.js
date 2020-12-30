@@ -11,7 +11,7 @@ switch (action.type){
             if(inputId===action.inputId){
                 formIsValid=formIsValid && action.isValid;
             } else {
-                formIsValid=formIsValid && state.inputs[inputId].isValid
+                formIsValid=formIsValid && state.inputs[inputId].isValid;
             }
         }
         return {
@@ -33,8 +33,6 @@ switch (action.type){
 
 // Note that the initialInputs and the initialformValidity are the default state values that are paassed on as parameters to the useForm function
 export const useForm=(initialInputs, initialFormValidity)=>{
-  
-
         const [formState, dispatch]=useReducer(formReducer, {
             // Here I am assigining the default state- initialization logic
             inputs:initialInputs, 
@@ -44,8 +42,12 @@ export const useForm=(initialInputs, initialFormValidity)=>{
 
         const inputHandler=useCallback((id, value, isValid)=>{
             // This titleInputHandler function is invoked onInput and collects id, type, value in textbox and adds isValid to pass on as paramteters for the dispatch 'object' representing the new state for the formReducer. If you look at the NewPlace function, you will notice that formReducer is "new updated state" for the useReducer hook function 
-            dispatch({type:'INPUT_CHANGE', value:value, isValid:isValid, inputId:id})
+            dispatch({
+                type:'INPUT_CHANGE', 
+                value:value, 
+                isValid:isValid, 
+                inputId:id})
         }, []);
         // here I am returning the formState and the dispatched updated state
-        return [formState, inputHandler]
-}//NewPlace
+        return [formState, inputHandler];
+};//NewPlace
