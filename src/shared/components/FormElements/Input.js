@@ -1,9 +1,14 @@
-import React, {useReducer} from "react";
-
-import {validate} from "../util/validators"
-import "./Input.css"
 
 
+// Forms input involve input.js, input.css, newPlace.js where the input form component is rendered and the util/validators.js to check for input validation
+
+
+import React, {useReducer, useEffect} from "react";
+
+import {validate} from "../../util/validators"
+import './Input.css';
+
+// Note that the useEffect hook is typlically used to run some javascript function when the page is loaded. We can also use this hook to execute another tertirary level function with a change in state and therefore DOM rendering is detected, for example in this case with the require input validation functionality. 
 
 const inputReducer=(state, action)=>{
     // Note that here we are assiging a type and val property to action
@@ -34,9 +39,25 @@ const Input=props=>{
     const [inputState, dispatch]=useReducer(inputReducer, {
         value:"", 
         isTouched:false,
-        isvalid:false,
+        isvalid:false
     
 });
+
+//Since we do not want an infinte loop, therefore another smart way is to use object destructuring to extract and use only what we need from the inputState and the props which is really id, onoutput,  value and isValid
+
+const {id, onInput}=props; // The oninput prop is setup in the newPlace.js where the input component is planted
+const {value, isValid}=inputState // I am using these objects as they are the markers of change in the state and input and would rightfully trigger to run the useEffect
+
+
+
+useEffect(
+    ()=>{
+        //Note that as I have used object destructring to extract and call in the variables from the React props and inputState objects I do not need to call in props.id or insputState.value or inputState.isValid in can directly call in value, isValidand onInput
+        onInput(id, value, isValid)
+    },[id, value, isValid, onInput] // [] lists the dependenciens. These dependencies are also the trigger for running the useEffect hook. For instance we would list props and the inputState in the dependencies, so that whenever props or the inputstate are changed the useEffect hook will run- Hosever the problem with this approach is that it will create an infinite loop between change and useEffect- which is inefficient. It will be an infinite loop because the change in prop is like a positive feeback system for running the useEffect- which means that It will get locked into a cycle of repeat rendering . In the final code I have used object destructuring to only extract the relevant forms of data which are capturing change
+)
+
+
 
 const changeHandler=event=>{
     // This is telling that whatever difference in the state you have detected capture that value and then dispatch it with a lable "Change" 
@@ -72,6 +93,7 @@ const touchHandler=()=>{
     // Two way binding for value
     // This is creating the prop.onChange that is storing the CHANGE lable and the latest value of the 
     onChange={changeHandler}
+    // The purpuse of adding this blurr is to pass on the touchHandler so that on the initial load of the page, when the user has not event clicked the title text box yet, and the input validation by default gives an input validation error for a missing value.Doing this fixes that issue by creating a "touch case" to the input validation logic is only execute if the user at leasts types in first and then clicks out
     onBlur={touchHandler}
     value={inputState.value}
     />
