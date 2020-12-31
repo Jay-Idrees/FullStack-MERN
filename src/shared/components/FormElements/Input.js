@@ -47,7 +47,7 @@ const Input=props=>{
 
 //Since we do not want an infinte loop, therefore another smart way is to use object destructuring to extract and use only what we need from the inputState and the props which is really id, onoutput,  value and isValid
 
-const {id, onInput}=props; // The oninput prop is setup in the newPlace.js where the input component is planted
+const {id, onInput}=props; // The oninput prop is setup in the newPlace.js where the input component is planted. By calling in on input I am also obtaining access to whatever is inside the 
 const {value, isValid}=inputState // I am using these objects as they are the markers of change in the state and input and would rightfully trigger to run the useEffect
 
 

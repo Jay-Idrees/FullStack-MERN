@@ -1,5 +1,7 @@
 import {useCallback, useReducer} from "react";
 
+//Note that react hooks must be directly called inside the functional components. It cannot be called out inside a loop or fetch/then etc
+
 // Copying the form reducer function form NewPlace.js
 const formReducer=(state, action)=>{
     // Here I am defining cases based on the type of input such as 'text' or 'textarea'
@@ -24,6 +26,13 @@ switch (action.type){
             // If even one of the individual components of the form 
             isValid:formIsValid
         };
+
+        case 'SET_DATA':
+        return {
+            inputs: action.inputs,
+            isValid:action.formIsValid
+        };
+
         default:
             return state;
 }//switch
@@ -33,6 +42,7 @@ switch (action.type){
 
 // Note that the initialInputs and the initialformValidity are the default state values that are paassed on as parameters to the useForm function
 export const useForm=(initialInputs, initialFormValidity)=>{
+    //useReducer produces the new state
         const [formState, dispatch]=useReducer(formReducer, {
             // Here I am assigining the default state- initialization logic
             inputs:initialInputs, 
@@ -46,8 +56,22 @@ export const useForm=(initialInputs, initialFormValidity)=>{
                 type:'INPUT_CHANGE', 
                 value:value, 
                 isValid:isValid, 
-                inputId:id})
+                inputId:id});
         }, []);
+
+// Now I am storing the data in a react callBack hook so the DOM does not need to be rerendered again and again in an infinite loop. 
+const setFormData=useCallback((inputData, formValidity)=>{
+
+dispatch({
+    type:'SET_DATA',
+    inputs:inputData,
+    formIsValid:formValidity
+
+    }); // dispatch
+}, []);// setFormData
+
+
+
         // here I am returning the formState and the dispatched updated state
-        return [formState, inputHandler];
+        return [formState, inputHandler, setFormData];
 };//NewPlace
