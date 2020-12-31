@@ -6,41 +6,43 @@ import Button from '../../shared/components/Button/Button';
 import './PlaceForm.css';
 import { VALIDATOR_MINLENGTH, VALIDATOR_REQUIRE } from '../../shared/util/validators';
 import {useForm} from "../../shared/hooks/form-hook";
+import Card from "../../shared/components/UIElements/Card"
 import'./PlaceForm.css'
+
 
 const DUMMY_PLACES=[ 
     // Using this dummy variable untill the backend is established
     
-    {
+    // {
 
-    id:'p1',
-    title:'Empire State building',
-    description:'One of the most famous sky scrapers in the world',
-    imageURL: 'https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1600&h=1067&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F10%2Fempire-state-buildling-colored-lights-EMPIRE1020.jpg',
-    address:'20 W 34th St, New York, NY 10001',
-    location:{
-        lat:40.7478713,
-        lng: -73.9865029
-    },
-    creator:'u1'    
+    // id:'p1',
+    // title:'Empire State building',
+    // description:'One of the most famous sky scrapers in the world',
+    // imageURL: 'https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1600&h=1067&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F10%2Fempire-state-buildling-colored-lights-EMPIRE1020.jpg',
+    // address:'20 W 34th St, New York, NY 10001',
+    // location:{
+    //     lat:40.7478713,
+    //     lng: -73.9865029
+    // },
+    // creator:'u1'    
     
-    },
+    // },
         
     
-    {
+    // {
 
-        id:'p2',
-        title:'Empire State building',
-        description:'One of the most famous sky scrapers in the world',
-        imageURL: 'https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1600&h=1067&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F10%2Fempire-state-buildling-colored-lights-EMPIRE1020.jpg',
-        address:'20 W 34th St, New York, NY 10001',
-        location:{
-            lat:40.7478713,
-            lng: -73.9865029
-        },
-        creator:'u2'    
+    //     id:'p2',
+    //     title:'Empire State building',
+    //     description:'One of the most famous sky scrapers in the world',
+    //     imageURL: 'https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=1600&h=1067&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F10%2Fempire-state-buildling-colored-lights-EMPIRE1020.jpg',
+    //     address:'20 W 34th St, New York, NY 10001',
+    //     location:{
+    //         lat:40.7478713,
+    //         lng: -73.9865029
+    //     },
+    //     creator:'u2'    
         
-        }
+    //     }
 
 ]
 
@@ -65,8 +67,10 @@ const UpdatePlace=()=>{
     }, false);
 
     const identifiedPlace=DUMMY_PLACES.find(p=>p.id===placeId);
-
+     
             useEffect (()=>{
+                if(identifiedPlace) {
+                
                 setFormData({
 
                     title:{
@@ -79,10 +83,11 @@ const UpdatePlace=()=>{
                     }
 
                 }, true);
+            }
                 setIsLoading(false);
             }, [setFormData, identifiedPlace]);
 
-
+        
 
     const placeUpdateSubmitHandler = event => {
         event.preventDefault();
@@ -93,7 +98,7 @@ const UpdatePlace=()=>{
     if (!identifiedPlace){
         return(
             <div className="center">
-                <h2>Could not find the place</h2>
+               <Card><h2>Could not find the place</h2></Card> 
             </div>
         );
 
