@@ -74,4 +74,4 @@ dispatch({
 
         // here I am returning the formState and the dispatched updated state
         return [formState, inputHandler, setFormData];
-};//NewPlace
+};// useForm

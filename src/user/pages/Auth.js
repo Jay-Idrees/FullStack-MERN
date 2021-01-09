@@ -32,7 +32,12 @@ const [isLoginMode, setIsLoginMode]=useState(true);
 
     const switchModeHanler=()=>{
         if (!isLoginMode) {
-            setFormData({name:undefined}, 
+            setFormData(
+                
+                {
+                    ...formState.inputs,
+                    name:undefined},
+                // This will allow to proceed only if there is valid input 
                 formState.inputs.email.isValid &&
                 formState.inputs.password.isValid);
         } else {
@@ -61,7 +66,7 @@ const [isLoginMode, setIsLoginMode]=useState(true);
             element='input'
             id='name'
             type='text'
-            label='Your Name'
+            label='First and Last Name'
             validators={[VALIDATOR_REQUIRE()]}
             errorText='Please enter a name'
             onInput={inputHandler}
@@ -74,7 +79,7 @@ const [isLoginMode, setIsLoginMode]=useState(true);
         label="E-Mail"
         validators={[VALIDATOR_EMAIL()]}
         errorText="Please enter a valid email address" 
-        // Note that this input handler is 
+        // Note that this input handler is coming form the useform hook that captures that data inside the fields
         onInput={inputHandler}
         />
 
@@ -93,7 +98,7 @@ const [isLoginMode, setIsLoginMode]=useState(true);
 
     </form>
 
-          <Button inverse onClick={switchModeHanler} type='submit' disabled={!formState.isValid}> {isLoginMode?'New User':'Login'} </Button>
+          <Button inverse onClick={switchModeHanler} type='submit' disabled={!formState.isValid}> {isLoginMode?'Register as New User':'Back to Login'} </Button>
     </Card>)
 };
 
