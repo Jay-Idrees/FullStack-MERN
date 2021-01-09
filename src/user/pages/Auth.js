@@ -1,16 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 
 
 import Card from "../../shared/components/UIElements/Card"
 import Input from '../../shared/components/FormElements/Input'
 import Button from "../../shared/components/Button/Button"
-import {VALIDATOR_MINLENGTH, VALIDATOR_EMAIL} from "../../shared/util/validators"
+import {VALIDATOR_MINLENGTH, VALIDATOR_EMAIL, VALIDATOR_REQUIRE} from "../../shared/util/validators"
 import {useForm} from '../../shared/hooks/form-hook'
 import "./Auth.css";
 
 const Auth=()=>{
 
-    const [formState, inputHandler]=useForm({
+const [isLoginMode, setIsLoginMode]=useState(true);
+
+// The useForm is the custom hook created in the form-hook.js and contains inputHandler and setFormData (coming from the useReducer function)
+    const [formState, inputHandler, setFormData]=useForm({
         // This is the initial state
         email: {
             value:"",
@@ -27,9 +30,24 @@ const Auth=()=>{
         console.log(formState.inputs)
     };
 
-    const switchModeHanler=event=>{
-        
-    }
+    const switchModeHanler=()=>{
+        if (!isLoginMode) {
+            setFormData({name:undefined}, 
+                formState.inputs.email.isValid &&
+                formState.inputs.password.isValid);
+        } else {
+            setFormData({
+                // Else copy the email and password as is and then add a new field called name, setting the default value to blank
+                ...formState.inputs,
+                name:{
+                    value:'',
+                    isValid:false
+                }
+                // Note that here as the overall state of the form is set to blank as the name field is left blank by default and thus is not able to 
+            }, false);
+        }
+        setIsLoginMode(prevMode => !prevMode);
+    };
 
     return(
     
@@ -38,6 +56,17 @@ const Auth=()=>{
         <hr/>
     
     <form onSubmit={authSubmitHandler}>
+        {!isLoginMode && (
+            <Input
+            element='input'
+            id='name'
+            type='text'
+            label='Your Name'
+            validators={[VALIDATOR_REQUIRE()]}
+            errorText='Please enter a name'
+            onInput={inputHandler}
+            />
+        ) }
         <Input 
         id='email'
         element='input'
@@ -59,11 +88,12 @@ const Auth=()=>{
         onInput={inputHandler}
         />
 
-        <Button type='submit' disabled={!formState.isValid}> Login</Button>
+
+        <Button type='submit' disabled={!formState.isValid}> {isLoginMode?'Login':'Register'}</Button>
 
     </form>
 
-          <Button inverse onClick={switchModeHanler} type='submit' disabled={!formState.isValid}> New User </Button>
+          <Button inverse onClick={switchModeHanler} type='submit' disabled={!formState.isValid}> {isLoginMode?'New User':'Login'} </Button>
     </Card>)
 };
 
