@@ -22,13 +22,22 @@ const Auth=()=>{
         }
     }, false);
 
+    const authSubmitHandler=event=>{
+        event.preventDefault();
+        console.log(formState.inputs)
+    };
+
+    const switchModeHanler=event=>{
+        
+    }
+
     return(
     
     <Card className='authentication'>
         <h2> Login Required </h2>
         <hr/>
     
-    <form>
+    <form onSubmit={authSubmitHandler}>
         <Input 
         id='email'
         element='input'
@@ -36,6 +45,7 @@ const Auth=()=>{
         label="E-Mail"
         validators={[VALIDATOR_EMAIL()]}
         errorText="Please enter a valid email address" 
+        // Note that this input handler is 
         onInput={inputHandler}
         />
 
@@ -53,6 +63,7 @@ const Auth=()=>{
 
     </form>
 
+          <Button inverse onClick={switchModeHanler} type='submit' disabled={!formState.isValid}> New User </Button>
     </Card>)
 };
 
