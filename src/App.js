@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useCallback} from 'react';
 import {BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-dom'
 
 import Users from  "./user/pages/Users"
@@ -7,9 +7,34 @@ import UserPlaces from "./places/pages/UserPlaces"
 import MainNavigation from "./shared/components/Navigation/MainNavigation"
 import UpdatePlaces from "./places/pages/UpdatePlace"
 import Auth from "./user/pages/Auth"
+import {AuthContext} from './shared/components/context/auth-context'
 
 const App=()=> {
-  return <Router>
+ const [isLoggedIn, setIsLoggedIn]=useState(false);
+
+ const login=useCallback(()=>{
+   setIsLoggedIn(true)
+ },[]);
+
+ const logout=useCallback(()=>{
+  setIsLoggedIn(false)
+},[]);
+
+
+  return (
+
+// Here whenever the value of the context changes the components/routes will be re-rendered. Basically it is allowing us to use state and bind it to the value
+<AuthContext.Provider value={
+
+{
+  isLoggedIn:isLoggedIn, 
+  login:login,
+  logout:logout
+}
+
+}>
+
+  <Router>
    
 <MainNavigation/>
 <main>
@@ -54,6 +79,10 @@ const App=()=> {
     </Switch>
     </main>
   </Router>
-};
+  
+  </AuthContext.Provider>
+  
+  ) // return
+}; //App
 
 export default App;

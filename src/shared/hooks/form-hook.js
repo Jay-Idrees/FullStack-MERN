@@ -10,6 +10,10 @@ switch (action.type){
         let formIsValid=true;
         // for each of the states of the component portions if you receive an id (stored in the variable inputId), match the ids for the default state defined in the useReducer function with the id of the component portion (e-g title)
         for (const inputId in state.inputs) {
+            // here I am checking that if the name is undefined then move on and do not check for validation
+            if (!state.inputs[inputId]){
+                continue;
+            }
             if(inputId===action.inputId){
                 formIsValid=formIsValid && action.isValid;
             } else {
@@ -51,7 +55,7 @@ export const useForm=(initialInputs, initialFormValidity)=>{
         }); // useReducer
 
         const inputHandler=useCallback((id, value, isValid)=>{
-            // This titleInputHandler function is invoked onInput and collects id, type, value in textbox and adds isValid to pass on as paramteters for the dispatch 'object' representing the new state for the formReducer. If you look at the NewPlace function, you will notice that formReducer is "new updated state" for the useReducer hook function 
+            // This inputHandler function is invoked onInput and collects id, type, value in textbox and adds isValid to pass on as paramteters for the dispatch 'object' representing the new state for the formReducer. If you look at the NewPlace function, you will notice that formReducer is "new updated state" for the useReducer hook function 
             dispatch({
                 type:'INPUT_CHANGE', 
                 value:value, 

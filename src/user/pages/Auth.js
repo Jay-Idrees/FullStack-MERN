@@ -35,6 +35,7 @@ const [isLoginMode, setIsLoginMode]=useState(true);
             setFormData(
                 
                 {
+                    // This will save the data if you go back to the login page and then 
                     ...formState.inputs,
                     name:undefined},
                 // This will allow to proceed only if there is valid input 
