@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 
 
 import Card from "../../shared/components/UIElements/Card"
@@ -6,9 +6,12 @@ import Input from '../../shared/components/FormElements/Input'
 import Button from "../../shared/components/Button/Button"
 import {VALIDATOR_MINLENGTH, VALIDATOR_EMAIL, VALIDATOR_REQUIRE} from "../../shared/util/validators"
 import {useForm} from '../../shared/hooks/form-hook'
+import {AuthContext} from '../../shared/context/auth-context'
 import "./Auth.css";
 
 const Auth=()=>{
+
+    const auth=useContext(AuthContext);
 
 const [isLoginMode, setIsLoginMode]=useState(true);
 
@@ -28,6 +31,8 @@ const [isLoginMode, setIsLoginMode]=useState(true);
     const authSubmitHandler=event=>{
         event.preventDefault();
         console.log(formState.inputs)
+        // Note that here I am extracting login from Authcontext(auth-context.js) This is where the context gets updated for re-rendering
+        auth.login();
     };
 
     const switchModeHanler=()=>{

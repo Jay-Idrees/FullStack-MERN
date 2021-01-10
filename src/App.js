@@ -5,9 +5,9 @@ import Users from  "./user/pages/Users"
 import NewPlace from "./places/pages/NewPlace"
 import UserPlaces from "./places/pages/UserPlaces"
 import MainNavigation from "./shared/components/Navigation/MainNavigation"
-import UpdatePlaces from "./places/pages/UpdatePlace"
+import UpdatePlace from "./places/pages/UpdatePlace"
 import Auth from "./user/pages/Auth"
-import {AuthContext} from './shared/components/context/auth-context'
+import {AuthContext} from './shared/context/auth-context'
 
 const App=()=> {
  const [isLoggedIn, setIsLoggedIn]=useState(false);
@@ -20,6 +20,50 @@ const App=()=> {
   setIsLoggedIn(false)
 },[]);
 
+let routes;
+  if (isLoggedIn){
+    routes=(
+      <Switch>
+      <Route path="/" exact>
+        <Users />
+      </Route>
+      <Route path="/:userId/places" exact>
+        <UserPlaces />
+      </Route>
+      <Route path="/places/new" exact>
+        <NewPlace />
+      </Route>
+      <Route path="/places/:placeId">
+        <UpdatePlace />
+      </Route>
+      {/* Redirecting to the homepage when  */}
+      <Redirect to="/" />
+    </Switch>
+    );
+  } else{
+    // These routes are relevant when not logged in
+    routes=(
+
+      <Switch>
+
+      <Route path="/" exact>
+      {/*This Users is from the pages users  */}
+      <Users/>
+      </Route>
+
+      <Route path="/:userId/places" exact>
+      <UserPlaces/>
+      </Route>
+
+      <Route path="/auth" exact>   
+          <Auth/>
+      </Route>
+
+      <Redirect to='/auth'/>
+
+      </Switch>
+    );
+  }
 
   return (
 
@@ -34,51 +78,11 @@ const App=()=> {
 
 }>
 
-  <Router>
-   
-<MainNavigation/>
-<main>
-   {/* Adding a switch prevents automatic re-routing of path */}
-   <Switch>
-    {/* Default path to users - You have to enclose the component in the route if you only want to display that particular component */}
-          <Route path="/" exact>
-            {/*This Users is from the pages users  */}
-            <Users/>
-
-          </Route>
-{/* Adding places and impoeting the userPlaces page */}
-            <Route path="/:userId/places" exact>
-              <UserPlaces/>
-            </Route>
-
-
-      {/* Path to places */}
-
-          <Route path="/places/new" exact>
-          
-          <NewPlace/>
-
-          </Route>
-
-
-          <Route path="/places/:placeId" exact>
-          
-          <UpdatePlaces/>
-
-          </Route>
-
-          <Route path="/auth" exact>
-          
-          <Auth/>
-
-          </Route>
-
-
-   {/* Redirecting to homepage of something else is typed */}
-      <Redirect to="/"/>
-    </Switch>
-    </main>
-  </Router>
+<Router>
+        <MainNavigation />
+        <main>{routes}</main>
+      </Router>
+  
   
   </AuthContext.Provider>
   
